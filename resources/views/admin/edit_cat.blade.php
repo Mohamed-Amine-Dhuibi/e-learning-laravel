@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
         {{Form::label('is_active', 'Active:')  }}
-        {{Form::checkbox('status', $category->status,true) }}
+        {{Form::checkbox('status','1',$category->status) }}
     </div>
         {{Form::hidden('_method','PUT')}}
         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}

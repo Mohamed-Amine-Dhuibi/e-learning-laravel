@@ -20,4 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/myspace/courses',App\Http\Controllers\CategoryController::class) ;
+Route::resource('/myspace/courses',App\Http\Controllers\CategoryController::class);
+Route::resource('/myspace/courses/course', App\Http\Controllers\CourseController::class);

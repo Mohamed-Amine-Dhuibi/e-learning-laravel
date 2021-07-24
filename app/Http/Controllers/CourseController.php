@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Category;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -13,7 +14,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+          
     }
 
     /**
@@ -34,7 +35,23 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'course_brief'=>'required', 
+            'course_fee'=>'required',
+            'c_count'=>'required',
+            
+        ]);
+        $course = new Course ; 
+        $course->title =$request->input('title') ; 
+        $course->course_brief = $request->input('course_brief') ; 
+        $course->status = $request->input('status') ; 
+        $course->course_fee=$request->input('course_fee') ;
+        $course->category_id=$request->input('c_id') ;
+        $course->nb_chapters = $request->input('c_count');
+
+        $course->save();
+        return redirect()->back(); 
     }
 
     /**
@@ -45,7 +62,8 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::find($id) ; 
+        return view('admin.course')->with('course',$course) ; 
     }
 
     /**
@@ -56,7 +74,8 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $course = Course::find($id) ; 
+        return view('admin.edit_course')->with('course',$course) ;
     }
 
     /**
@@ -68,7 +87,25 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+        $validated = $request->validate([
+            'title' => 'required',
+            'course_brief'=>'required', 
+            'course_fee'=>'required',
+            'c_count'=>'required',
+            
+        ]);
+        $course = Course::find($id) ;  
+        $course->title =$request->input('title') ; 
+        $course->course_brief = $request->input('course_brief') ; 
+        $course->status = $request->input('status') ; 
+        $course->course_fee=$request->input('course_fee') ;
+        $course->category_id=$request->input('c_id') ;
+        $course->nb_chapters = $request->input('c_count');
+
+        $course->save();
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +116,8 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $course = Course::find($id) ; 
+        $course->delete() ; 
+        return redirect()->back();
     }
 }

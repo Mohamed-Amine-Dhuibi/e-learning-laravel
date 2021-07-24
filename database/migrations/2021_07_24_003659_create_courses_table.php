@@ -17,9 +17,10 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('title') ;
             $table->string('course_brief') ;
-            $table->integer('nb_chapters') ;
-            $table->float('course_fee')   ;
+            $table->integer('nb_chapters')->nullable()->default(0) ;
+            $table->float('course_fee') ;
             $table->integer('category_id') ; 
+            $table->integer('status')->nullable()->default(0) ; 
             $table->timestamps();
         });
     }

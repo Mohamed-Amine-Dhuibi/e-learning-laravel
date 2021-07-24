@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Category;
+use App\Models\Course;
 use Illuminate\Http\Request;
+
 
 class CategoryController extends Controller
 {
@@ -20,7 +22,7 @@ class CategoryController extends Controller
         $state =CategoryController::nb_cat() ;
         $categories = Category::orderBy('created_at','desc')->paginate(10);
 
-        return view('admin.courses',['state'=>$state,'categories'=>$categories]) ; 
+        return view('admin.categories',['state'=>$state,'categories'=>$categories]) ; 
     }
     
     public function nb_cat(){
@@ -53,7 +55,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'bail|required|max:255',
             'description'=>'required|max:255', 
-            'status' => 'required',
+            
         ]);
         
         $cat = new Category ; 
@@ -75,7 +77,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id) ; 
+        $courses = $category->Courses ;
+
+        return view('admin.courses')->with(['courses'=>$courses,'category'=>$category]) ; 
     }
 
     /**
@@ -102,7 +107,6 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'bail|required|max:255',
             'description'=>'required|max:255', 
-            'status' => 'required',
         ]);
 
         $cat = Category::find($id) ; 
