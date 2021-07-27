@@ -19,18 +19,16 @@ class CategoryController extends Controller
     public function index()
     {
         
-        $state =CategoryController::nb_cat() ;
+        $count =CategoryController::nb_cat() ;
         $categories = Category::orderBy('created_at','desc')->paginate(10);
 
-        return view('admin.categories',['state'=>$state,'categories'=>$categories]) ; 
+        return ['count'=>$count,'categories'=>$categories] ; 
     }
     
     public function nb_cat(){
 
         $count = Category::count() ;
-        $count == 0 ? $state = 0 : $state=1 ;   
-
-        return $state ;
+        return $count;
     }
 
     /**
@@ -40,7 +38,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+       return view('admin.create_cat') ; 
     }
 
     /**
@@ -65,7 +63,7 @@ class CategoryController extends Controller
         $cat->save() ; 
         $state =CategoryController::nb_cat() ;
         
-        return redirect()->action('App\Http\Controllers\CategoryController@index') ; 
+        return redirect()->action('App\Http\Controllers\CousesViewController@index') ; 
 
     }
 
@@ -80,7 +78,7 @@ class CategoryController extends Controller
         $category = Category::find($id) ; 
         $courses = $category->Courses ;
 
-        return view('admin.courses')->with(['courses'=>$courses,'category'=>$category]) ; 
+        return ['courses'=>$courses,'category'=>$category] ; 
     }
 
     /**
@@ -116,7 +114,7 @@ class CategoryController extends Controller
         $cat->save() ; 
         $state =CategoryController::nb_cat() ;
         
-        return redirect()->action('App\Http\Controllers\CategoryController@index') ; 
+        return redirect()->action('App\Http\Controllers\CoursesViewController@index') ; 
     }
 
     /**

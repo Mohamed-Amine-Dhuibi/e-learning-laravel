@@ -3,18 +3,10 @@
 @section('content')
 
 <h1>
-    {{ $course->title }}
+   Title :  {{ $course->title }}
 </h1>
-    {{ $course->course_brief }}
-    <p>{{ $course->nb_chapters }}</p>
-    <p>{{ $course->course_fee }}</p>
-
-
-
-
-
-
-
-
-
+   Course Brief : {{ $course->course_brief }}<br/>
+   Number of chapters : {{ $course->nb_chapters }}<br/>
+   Fee :  {{ $course->course_fee }}
+   <a href="/myspace/courses/course/{{ $course->id }}/edit">EDIT</a>
 @endsection

@@ -1,7 +1,8 @@
 @extends('admin.layouts.admin')
 
 @section('content')
-@foreach ($errors->all() as $error )
+<div class="pl-5">
+    @foreach ($errors->all() as $error )
     
     <div class="alert alert-danger" role="alert">
         {{ $error }}
@@ -9,7 +10,7 @@
 
     @endforeach
 
-    <h1>Create Course</h1>
+    <h1>Add Course</h1>
     {{ Form::open(['action' => 'App\Http\Controllers\CourseController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{Form::label('title', 'Title')}}
@@ -21,30 +22,18 @@
     </div>
     <div class="form-group">
         {{Form::label('is_active', 'Active:')  }}
-        {{Form::checkbox('status', '1' , false) }}
+        {{Form::checkbox('status', '1' , false) }}<br/>
         {{Form::label('c_count', "Chapter's count")}}
         {{Form::text('c_count', '', ['class' => 'form-control'])}}
         {{Form::label('course_fee', "Price")}}
         {{Form::text('course_fee', '', ['class' => 'form-control'])}}
     </div>
-        {{ Form::hidden('c_id', $category->id) }}
+        {{ Form::hidden('c_id', $c_id) }}
         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
     {{Form::close() }}
 
     
 <hr>
+</div>
 
-
-@foreach ($courses as $course  )
-    <div>
-        {{ $course->title }}
-        <small>{{ $course->course_brief }}</small>
-        <a href="/myspace/courses/course/{{ $course->id }}/edit">EDIT</a>
-        <a href="/myspace/courses/course/{{ $course->id }}">Show</a> 
-        {!! Form::open(['action'=>['App\Http\Controllers\CourseController@destroy',$course->id],'method'=>'POST','class'=>""]) !!}
-            {{ Form::hidden('_method','DELETE') }}
-            {{ Form::submit('Delete',['class'=>'']) }}
-        {!! Form::close() !!}
-    </div>    
-    @endforeach
 @endsection

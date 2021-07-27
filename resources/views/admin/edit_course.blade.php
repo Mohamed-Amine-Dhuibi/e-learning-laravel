@@ -8,7 +8,7 @@
 
     @endforeach
 
-    <h1>Create Course</h1>
+    <h1>Edit Course</h1>
     {{ Form::open(['action' => ['App\Http\Controllers\CourseController@update',$course->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">
         {{Form::label('title', 'Title')}}

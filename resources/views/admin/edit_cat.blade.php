@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 @section('content')
-<h1>Create Post</h1>
+<h1>Edit Category</h1>
 
     {{ Form::open(['action' => ['App\Http\Controllers\CategoryController@update',$category->id] , 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
     <div class="form-group">

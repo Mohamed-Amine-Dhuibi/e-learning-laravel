@@ -22,9 +22,9 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view('admin.add_course')->with('c_id',$id) ;
     }
 
     /**
@@ -51,7 +51,7 @@ class CourseController extends Controller
         $course->nb_chapters = $request->input('c_count');
 
         $course->save();
-        return redirect()->back(); 
+        return redirect('/myspace/courses'); 
     }
 
     /**
@@ -105,7 +105,7 @@ class CourseController extends Controller
         $course->nb_chapters = $request->input('c_count');
 
         $course->save();
-        return redirect()->back();
+        return redirect('/myspace/courses');
     }
 
     /**

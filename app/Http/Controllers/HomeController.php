@@ -29,7 +29,7 @@ class HomeController extends Controller
             if(Auth::user()->privilege =='student'){
                 return "student";
             }else{
-                return "hello admin :)";
+                return view('admin.dashboard');
             }
         }
         return view('home');
