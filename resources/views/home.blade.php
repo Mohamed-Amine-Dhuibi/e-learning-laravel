@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    @include('user.courses')
                 </div>
             </div>
         </div>

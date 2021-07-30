@@ -24,7 +24,7 @@ class CourseController extends Controller
      */
     public function create($id)
     {
-        return view('admin.add_course')->with('c_id',$id) ;
+        return view('admin.courses.add_course')->with('c_id',$id) ;
     }
 
     /**
@@ -63,7 +63,7 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::find($id) ; 
-        return view('admin.course')->with('course',$course) ; 
+        return view('admin.courses.course')->with('course',$course) ; 
     }
 
     /**
@@ -75,7 +75,7 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id) ; 
-        return view('admin.edit_course')->with('course',$course) ;
+        return view('admin.courses.edit_course')->with('course',$course) ;
     }
 
     /**
@@ -92,8 +92,8 @@ class CourseController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'course_brief'=>'required', 
-            'course_fee'=>'required',
-            'c_count'=>'required',
+            'course_fee'=>'required|float',
+            'c_count'=>'required|integer',
             
         ]);
         $course = Course::find($id) ;  

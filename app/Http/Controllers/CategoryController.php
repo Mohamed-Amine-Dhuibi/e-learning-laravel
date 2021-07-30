@@ -38,7 +38,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-       return view('admin.create_cat') ; 
+       return view('admin.courses.create_cat') ; 
     }
 
     /**
@@ -63,7 +63,7 @@ class CategoryController extends Controller
         $cat->save() ; 
         $state =CategoryController::nb_cat() ;
         
-        return redirect()->action('App\Http\Controllers\CousesViewController@index') ; 
+        return redirect()->action('App\Http\Controllers\CoursesViewController@index') ; 
 
     }
 
@@ -90,7 +90,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category =  Category::find($id);
-        return view('admin.edit_cat')->with('category',$category);
+        return view('admin.courses.edit_cat')->with('category',$category);
     }
 
     /**
@@ -112,7 +112,6 @@ class CategoryController extends Controller
         $cat->status = $request->input('status');
         $cat->description = $request->input('description') ; 
         $cat->save() ; 
-        $state =CategoryController::nb_cat() ;
         
         return redirect()->action('App\Http\Controllers\CoursesViewController@index') ; 
     }
@@ -127,6 +126,6 @@ class CategoryController extends Controller
     {
         $cat = Category::find($id) ; 
         $cat->delete() ; 
-        return redirect()->action('App\Http\Controllers\CategoryController@index')->with('success','deleted') ; 
+        return redirect()->action('App\Http\Controllers\CoursesViewController@index')->with('success','deleted') ; 
     }
 }
