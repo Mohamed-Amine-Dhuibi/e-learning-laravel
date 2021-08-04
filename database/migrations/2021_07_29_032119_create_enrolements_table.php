@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnrolementTable extends Migration
+class CreateEnrolementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateEnrolementTable extends Migration
      */
     public function up()
     {
-        Schema::create('enrolement', function (Blueprint $table) {
+        Schema::create('enrolements', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->boolean('subscription_is_paid') ; 
+            $table->boolean('subscription_is_paid')->default(false) ; 
             $table->integer('course_id') ;
             $table->integer('user_id') ;
         });

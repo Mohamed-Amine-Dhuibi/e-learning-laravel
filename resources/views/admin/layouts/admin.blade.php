@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Sidebar 01</title>
+  	<title>Admin Panel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -26,13 +26,10 @@
 	              <a class="side-nav" href="/myspace/courses">Courses</a>
               </li>
               <li>
-                <a class="side-nav" href="#">users</a>
+                <a class="side-nav" href="/myspace/users">users</a>
             </li>
             <li>
-                <a class="side-nav" href="#">Subscriptions</a>
-            </li>
-            <li>
-                <a class="side-nav" href="#">Courses</a>
+                <a class="side-nav" href="/myspace/enrolments">Subscriptions</a>
             </li>
             <li>
                 <a class="side-nav" href="#">Inbox</a>

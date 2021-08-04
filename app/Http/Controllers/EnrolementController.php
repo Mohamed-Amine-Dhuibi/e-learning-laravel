@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Course ; 
+use App\Models\Enrolement ; 
 
 class EnrolementController extends Controller
 {
@@ -13,10 +16,7 @@ class EnrolementController extends Controller
      */
     public function index()
     {
-
-
-        
-        return view('user.courses') ;
+        return 403 ;
     }
 
     /**
@@ -24,9 +24,10 @@ class EnrolementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($course_id)
     {
-        //
+        $course = Course::find($course_id) ; 
+        return view('user.enrolement')->with('course',$course) ; 
     }
 
     /**
@@ -37,7 +38,16 @@ class EnrolementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $enrolement  = new Enrolement ;   
+        $enrolement->course_id = $request->input('c_id');
+        if (Auth::check()) {
+            $enrolement->user_id = Auth::user()->id ;
+        }else{
+            return "login" ; 
+        }
+        $enrolement->save() ; 
+        $user = Auth::user() ; 
+        return $user->Enrolments ; 
     }
 
     /**

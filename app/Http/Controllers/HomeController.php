@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use app\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserCoursesViewController ;
+use App\Models\Category ;
+
 
 class HomeController extends Controller
 {
@@ -28,9 +30,7 @@ class HomeController extends Controller
     {
         if (Auth::check()) {
             if(Auth::user()->privilege =='student'){
-                /*$controller = new UserCoursesViewController ; 
-                $x = $controller->index();
-                return $x ;*/     
+                return view('home')->with('categories',Category::where('status',1)->get()) ;     
             }else{
                 return view('admin.dashboard');
             }

@@ -10,9 +10,9 @@ class CoursesViewController extends Controller
 {
     public function index(){
 
-
-        $cat  = "Category::where('status',1) ; "
-        return $cat;
-    }
-   
+        $cat =new  CategoryController ;
+        $Cats = $cat->index() ; 
+            
+        return view('admin.courses.categories')->with($Cats);
+    }   
 }
