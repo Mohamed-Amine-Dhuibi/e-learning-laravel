@@ -104,16 +104,20 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'bail|required|max:255',
-            'description'=>'required|max:255', 
+            'description'=>'required|max:255',
         ]);
 
         $cat = Category::find($id) ; 
-        $cat->name = $request->input('name') ;
-        $cat->status = $request->input('status');
-        $cat->description = $request->input('description') ; 
-        $cat->save() ; 
+        if($cat){
+            $cat->name = $request->input('name') ;
+            $cat->status = $request->input('status');
+            $cat->description = $request->input('description') ; 
+            $cat->save() ; 
+            return redirect()->action('App\Http\Controllers\CoursesViewController@index') ; 
+        }else return 'invalid request' ; 
         
-        return redirect()->action('App\Http\Controllers\CoursesViewController@index') ; 
+        
+        
     }
 
     /**
@@ -125,7 +129,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $cat = Category::find($id) ; 
-        $cat->delete() ; 
+        if($cat){
+            $cat->delete() ; 
         return redirect()->action('App\Http\Controllers\CoursesViewController@index')->with('success','deleted') ; 
+        }else return 'invalid request' ; 
+        
     }
 }

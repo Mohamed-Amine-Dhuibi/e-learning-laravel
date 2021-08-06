@@ -9,6 +9,13 @@ use App\Models\Enrolement ;
 
 class EnrolementController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +23,7 @@ class EnrolementController extends Controller
      */
     public function index()
     {
-        return 403 ;
+       //
     }
 
     /**
@@ -38,7 +45,9 @@ class EnrolementController extends Controller
      */
     public function store(Request $request)
     {
-        $enrolement  = new Enrolement ;   
+
+        if(Course::find($request->input('c_id'))){
+        $enrolement  = new Enrolement  ;
         $enrolement->course_id = $request->input('c_id');
         if (Auth::check()) {
             $enrolement->user_id = Auth::user()->id ;
@@ -48,6 +57,8 @@ class EnrolementController extends Controller
         $enrolement->save() ; 
         $user = Auth::user() ; 
         return $user->Enrolments ; 
+        } return 'invalid request' ; 
+        
     }
 
     /**

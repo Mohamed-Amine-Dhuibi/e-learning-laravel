@@ -26,6 +26,7 @@
             </div>
         
         {!! Form::open(['action'=>['App\Http\Controllers\CategoryController@destroy',$category->id],'method'=>'POST','class'=>""]) !!}
+        @csrf
             {{ Form::hidden('_method','DELETE') }}
             {{ Form::submit('Delete',['class'=>'']) }}
         {!! Form::close() !!}

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -26,8 +27,21 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    public function redirectTo() {
+        $privilege = Auth::user()->privilege; 
+        switch ($privilege) {
+          case 'admin':
+            return '/myspace/dashboard';
+            break;
+          case 'student':
+            return '/myspace';
+            break; 
+      
+          default:
+            return '/'; 
+          break;
+        }
+      }
     /**
      * Create a new controller instance.
      *

@@ -19,22 +19,34 @@ class CoursesSubscriptionsViewController extends Controller
     public function course_enrolment($id){
 
         $course = Course::find($id) ; 
-        $enrolments = $course->Enrolments ; 
+        if($course){
+            $enrolments = $course->Enrolments ; 
         return view('admin.enrolments.enrolment')->with(['enrolments'=>$enrolments,'course'=>$course]) ; 
+        }else return 'invalid request' ; 
+        
     }
 
 
     public function approve($id){
+
         $enrolment = Enrolement::find($id) ; 
-        $enrolment->subscription_is_paid = 1 ;
-        $enrolment->save() ;
-        return redirect()->back() ; 
+        if ($enrolment){
+            $enrolment->subscription_is_paid = 1 ;
+            $enrolment->save() ;
+        return redirect()->back() ;
+        }else return 'invalid request' ; 
+         
     }
     public function cancel($id){
         $enrolment = Enrolement::find($id) ; 
-        $enrolment->subscription_is_paid = 0  ;
-        $enrolment->save() ;
+        if($enrolment){
+            $enrolment->subscription_is_paid = 0  ;
+            $enrolment->save() ;
         return redirect()->back() ; 
+        }else return 'invalid request' ; 
+        
+        
+        
     }
 
 

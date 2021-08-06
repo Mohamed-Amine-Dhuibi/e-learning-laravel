@@ -10,6 +10,8 @@
 
     <h1>Edit Course</h1>
     {{ Form::open(['action' => ['App\Http\Controllers\CourseController@update',$course->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    @csrf
+
     <div class="form-group">
         {{Form::label('title', 'Title')}}
         {{Form::text('title', $course->title, ['class' => 'form-control', 'placeholder' => 'Title'])}}

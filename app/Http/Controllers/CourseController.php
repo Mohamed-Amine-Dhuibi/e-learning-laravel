@@ -14,7 +14,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-          
+          //
     }
 
     /**
@@ -36,13 +36,13 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'course_brief'=>'required', 
-            'course_fee'=>'required',
-            'c_count'=>'required',
-            
+            'title' => 'required|string',
+            'course_brief'=>'required|string', 
+            'course_fee'=>'required|numeric',
+            'c_count'=>'required|integer',
         ]);
-        $course = new Course ; 
+        if(Category::find($request->input('c_id') )){
+            $course = new Course ; 
         $course->title =$request->input('title') ; 
         $course->course_brief = $request->input('course_brief') ; 
         $course->status = $request->input('status') ; 
@@ -52,6 +52,8 @@ class CourseController extends Controller
 
         $course->save();
         return redirect('/myspace/courses'); 
+        }return 'invalid request' ; 
+        
     }
 
     /**
@@ -63,7 +65,9 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::find($id) ; 
-        return view('admin.courses.course')->with('course',$course) ; 
+        if($course){
+            return view('admin.courses.course')->with('course',$course) ; 
+        }else return 'invalid request' ; 
     }
 
     /**
@@ -75,7 +79,9 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id) ; 
-        return view('admin.courses.edit_course')->with('course',$course) ;
+        if($course){    
+            return view('admin.courses.edit_course')->with('course',$course) ;
+        }return 'invalid request' ; 
     }
 
     /**
@@ -90,22 +96,25 @@ class CourseController extends Controller
 
 
         $validated = $request->validate([
-            'title' => 'required',
-            'course_brief'=>'required', 
-            'course_fee'=>'required|float',
+            'title' => 'required|string',
+            'course_brief'=>'required|string', 
+            'course_fee'=>'required|numeric',
             'c_count'=>'required|integer',
-            
         ]);
-        $course = Course::find($id) ;  
-        $course->title =$request->input('title') ; 
-        $course->course_brief = $request->input('course_brief') ; 
-        $course->status = $request->input('status') ; 
-        $course->course_fee=$request->input('course_fee') ;
-        $course->category_id=$request->input('c_id') ;
-        $course->nb_chapters = $request->input('c_count');
 
-        $course->save();
-        return redirect('/myspace/courses');
+        $course = Course::find($id) ;  
+        if($course){
+            $course->title =$request->input('title') ; 
+            $course->course_brief = $request->input('course_brief') ; 
+            $course->status = $request->input('status') ; 
+            $course->course_fee=$request->input('course_fee') ;
+            $course->category_id=$request->input('c_id') ;
+            $course->nb_chapters = $request->input('c_count');
+    
+            $course->save();
+            return redirect('/myspace/courses');
+        }else return 'invalid request' ; 
+       
     }
 
     /**
@@ -117,7 +126,10 @@ class CourseController extends Controller
     public function destroy($id)
     {
         $course = Course::find($id) ; 
-        $course->delete() ; 
-        return redirect()->back();
+        if($course){
+            $course->delete() ; 
+            return redirect()->back();
+        }else return 'invalid request' ; 
+        
     }
 }

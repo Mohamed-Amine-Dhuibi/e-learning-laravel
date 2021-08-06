@@ -4,6 +4,8 @@
 @section('content')
 <h1>Create Category</h1>
     {{ Form::open(['action' => 'App\Http\Controllers\CategoryController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    @csrf
+
     <div class="form-group">
         {{Form::label('name', 'Name')}}
         {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Title'])}}

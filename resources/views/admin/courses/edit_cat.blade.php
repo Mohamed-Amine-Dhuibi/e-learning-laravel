@@ -3,6 +3,8 @@
 <h1>Edit Category</h1>
 
     {{ Form::open(['action' => ['App\Http\Controllers\CategoryController@update',$category->id] , 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    @csrf
+
     <div class="form-group">
         {{Form::label('name', 'Name')}}
         {{Form::text('name', $category->name, ['class' => 'form-control', 'placeholder' => 'Title'])}}

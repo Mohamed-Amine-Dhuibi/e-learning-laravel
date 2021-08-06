@@ -3,9 +3,9 @@
 
 
 @foreach ( $users as $user )
-    <a href="#">{{ $user->name }}</a>   |
+    <a href="/myspace/users/{{ $user->id }}">{{ $user->name }}</a>   |
     {{ $user->email }}  |
-    {{ $user->phone_number }}|<a href="#">Edit</a>|<a href="#">delete</a>
+    {{ $user->phone_number }} | <a href="/myspace/users/{{ $user->id }}/edit">Edit</a> | <a href="/myspace/users/{{ $user->id }}/delete">delete</a>
     <br/>
 
     @endforeach

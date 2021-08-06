@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.admin')
 
 @section('content')
@@ -19,16 +18,11 @@
             <div class="d-flex flex-row">
                 <h1> {{ $category->name }}</h1> 
                 <div class="top-0 end-0">
-                <a href="/myspace/courses/course/create/{{ $category->id }}">Add Course</a>
-                <a href="/myspace/courses/cat/{{ $category->id }}/edit">EDIT</a>
                 </div>
                 
             </div>
         
-        {!! Form::open(['action'=>['App\Http\Controllers\CategoryController@destroy',$category->id],'method'=>'POST','class'=>""]) !!}
-            {{ Form::hidden('_method','DELETE') }}
-            {{ Form::submit('Delete',['class'=>'']) }}
-        {!! Form::close() !!}
+        
         <div class="d-flex flex-row">
         @foreach ( $category->courses  as $course )
         <div class="card" style="width: 10rem ">

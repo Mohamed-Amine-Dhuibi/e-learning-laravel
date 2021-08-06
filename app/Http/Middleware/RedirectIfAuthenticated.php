@@ -17,16 +17,24 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next, $guard=null)
     {
-        $guards = empty($guards) ? [null] : $guards;
-
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+        if (Auth::guard($guard)->check()) {
+            $role = Auth::user()->role; 
+        
+            switch ($role) {
+              case 'admin':
+                 return redirect('/myspace/courses');
+                 break;
+              case 'student':
+                 return redirect('/myspace');
+                 break; 
+        
+              default:
+                 return redirect('/'); 
+                 break;
             }
-        }
-
-        return $next($request);
+          }
+          return $next($request);
     }
 }
