@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Course ; 
 use App\Models\Enrolement ; 
+use Illuminate\Support\Facades\DB;
+use App\Models\Event ; 
+
 
 class EnrolementController extends Controller
 {
@@ -34,7 +37,10 @@ class EnrolementController extends Controller
     public function create($course_id)
     {
         $course = Course::find($course_id) ; 
-        return view('user.enrolement')->with('course',$course) ; 
+        if($course){
+            return view('user.enrolement')->with('course',$course) ; 
+        }else return 'invalid request ' ; 
+        
     }
 
     /**
@@ -45,21 +51,50 @@ class EnrolementController extends Controller
      */
     public function store(Request $request)
     {
-
-        if(Course::find($request->input('c_id'))){
-        $enrolement  = new Enrolement  ;
-        $enrolement->course_id = $request->input('c_id');
-        if (Auth::check()) {
-            $enrolement->user_id = Auth::user()->id ;
-        }else{
-            return "login" ; 
+        if($request->input('c_id')){
+                    $enrolment  = DB::table('enrolements')
+                    ->where('user_id','=',Auth::user()->id)
+                    ->where('course_id','=',$request->input('c_id')) 
+                    ->get() ; 
+        if($enrolment!='[]'){
+            return redirect('/courses') ; 
         }
-        $enrolement->save() ; 
-        $user = Auth::user() ; 
-        return $user->Enrolments ; 
-        } return 'invalid request' ; 
+        if(Course::find($request->input('c_id'))){
+            $enrolement  = new Enrolement  ;
+            $enrolement->course_id = $request->input('c_id');
+            if (Auth::check()) {
+                $enrolement->user_id = Auth::user()->id ;
+            }else{
+                return "login" ; 
+            }
+            $enrolement->save() ; 
+            $user = Auth::user() ; 
+            return $user->Enrolments ; 
+            } return 'invalid request' ; 
+        }else if($request->input('e_id')){
+            $enrolment  = DB::table('enrolements')
+                    ->where('user_id','=',Auth::user()->id)
+                    ->where('event_id','=',$request->input('e_id')) 
+                    ->get() ; 
+        if($enrolment!='[]'){
+            return redirect('/courses') ; 
+        }
+        if(Course::find($request->input('e_id'))){
+            $enrolement  = new Enrolement  ;
+            $enrolement->event_id = $request->input('e_id');
+            if (Auth::check()) {
+                $enrolement->user_id = Auth::user()->id ;
+            }else{
+                return "login" ; 
+            }
+            $enrolement->save() ; 
+            $user = Auth::user() ; 
+            return $user->Enrolments ; 
+            } return 'invalid request' ; 
+        }
         
     }
+    
 
     /**
      * Display the specified resource.
@@ -105,4 +140,5 @@ class EnrolementController extends Controller
     {
         //
     }
+    
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Course ;
 use App\Models\User ;
+use App\Models\Event ;
 
 
 class Enrolement extends Model
@@ -31,5 +32,9 @@ class Enrolement extends Model
     public function Course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function Event() {
+        return $this->belongsTo(Event::class);
     }
 }

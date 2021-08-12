@@ -17,7 +17,8 @@ class CreateEnrolementsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->boolean('subscription_is_paid')->default(false) ; 
-            $table->integer('course_id') ;
+            $table->integer('course_id')->nullable() ;
+            $table->integer('event_id')->nullable() ;
             $table->integer('user_id') ;
         });
     }

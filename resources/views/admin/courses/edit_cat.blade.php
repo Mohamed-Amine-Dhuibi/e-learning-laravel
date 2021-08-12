@@ -1,5 +1,8 @@
 @extends('admin.layouts.admin')
 @section('content')
+<div style="margin-left: 4%  ;">
+
+   
 <h1>Edit Category</h1>
 
     {{ Form::open(['action' => ['App\Http\Controllers\CategoryController@update',$category->id] , 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
@@ -19,6 +22,13 @@
     </div>
         {{Form::hidden('_method','PUT')}}
         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+        {!! Form::open(['action'=>['App\Http\Controllers\CategoryController@destroy',$category->id],'method'=>'POST','class'=>""]) !!}
+        {{ Form::hidden('_method','DELETE') }}
+        <button type="submit" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="delete course">
+          <i class="material-icons">delete</i>
+        </button>
+        {!! Form::close() !!}
     {{ Form::close() }}
+</div>
 
 @endsection

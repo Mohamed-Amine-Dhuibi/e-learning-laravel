@@ -1,83 +1,124 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/8c01f7817d.js"></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+
+
+
+
+
+
+<!--NAVBAR-->
+
+
+
+
+
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>XYPNOS - LABS </title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Favicons -->
+  <link href="https://xypnos-labs.com/assets/img/favicon.png" rel="icon">
+  <link href="https://xypnos-labs.com/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+  
+
+  <!-- Template Main CSS File -->
+  <link href="https://xypnos-labs.com/assets/css/style.css" rel="stylesheet">
+  <link rel ="stylesheet" type ="text/css" href="css/home.css">
+<link  type ="JavaScript" href= "js/home.js">
+
+
+  
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+    <div class="container d-flex align-items-center">
 
-                    </ul>
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="index.html"><img src="https://xypnos-labs.com/assets/img/xypnos.png" alt=""></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/courses">Courses</a></li>
+          @if (Auth::check())
+          <li><a href="/myspace">My Courses</a></li>
+          <li><a href="/logout">Logout</a></li>
+          @if (Auth::User()->privilege=='admin')
+          <li><a href="/myspace/dashboard">My Space</a></li>
+          @endif
+          @else
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+          @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+        </ul>
+      </nav><!-- .nav-menu -->
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
     </div>
-</body>
-</html>
+    <script src="https://xypnos-labs.com/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="https://xypnos-labs.com/assets/js/main.js"></script>
+
+  </header><!-- End Header -->
+
+   
+
+
+
+
+
+
+    @yield('content')
+
+
+     <!--footer-->
+  
+
+     <footer id="footer">
+        <div class="container">
+          <h3>XYPNOS LABS</h3>
+          <p>get access to your full training
+
+          </p>
+          <div class="social-links">
+            
+            <a href="https://www.facebook.com/xypnoslabs" class="facebook"><i class="bx bxl-facebook"></i></a>
+            
+           
+            <a href="https://www.linkedin.com/company/xypnos-labs" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          </div>
+          <div class="copyright">
+            © Copyright <strong><span>XYPNOS LABS</span></strong>. All Rights Reserved
+          </div>
+         
+        </div>
+      </footer>

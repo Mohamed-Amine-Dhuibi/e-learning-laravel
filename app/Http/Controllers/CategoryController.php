@@ -129,7 +129,11 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $cat = Category::find($id) ; 
+       
         if($cat){
+            $courses = Course::where('category_id',$id) ; 
+            $courses->delete();
+
             $cat->delete() ; 
         return redirect()->action('App\Http\Controllers\CoursesViewController@index')->with('success','deleted') ; 
         }else return 'invalid request' ; 

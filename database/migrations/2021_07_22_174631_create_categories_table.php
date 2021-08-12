@@ -18,8 +18,10 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->integer('status')->nullable()->default(0) ; 
             $table->text('description');
+            $table->string('cover_image')->default('no_image.jpg') ;  
             $table->integer('nb_courses')->default(0);//to be changed 
             $table->timestamps();
+       
         });
     }
 

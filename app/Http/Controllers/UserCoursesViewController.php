@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Event;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -13,8 +15,9 @@ class UserCoursesViewController extends Controller
 
     public function index()
     {
-        
-                return view('courses')->with('categories',Category::where('status',1)->orderby('created_at','desc')->get()) ;     
+       $categories =  Category::where('status','1')->orderby('created_at','desc')->get() ; 
+       $events = Event::where('status','1')->get() ; 
+        return view('courses')->with(['categories'=>$categories,'events'=>$events]) ;     
         
     }
 
@@ -25,4 +28,5 @@ class UserCoursesViewController extends Controller
         }else return('invalid request') ; 
         
     }
+  
 }

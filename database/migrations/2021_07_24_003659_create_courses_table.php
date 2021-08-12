@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->integer('nb_chapters')->nullable()->default(0) ;
             $table->float('course_fee') ;
             $table->integer('category_id') ; 
+            $table->string('cover_image')->default('no_image.jpg') ; 
             $table->integer('status')->nullable()->default(0) ; 
             $table->timestamps();
         });

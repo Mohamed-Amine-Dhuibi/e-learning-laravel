@@ -5,6 +5,8 @@ use App\Http\Controllers ;
 use App\Http\Controllers\CategoryController ;
 use App\Http\Controllers\CoursesViewController ;
 use App\Http\Controllers\EnrolementController ;
+use App\Http\Controllers\EventController ;
+use App\Http\Controllers\DashboardController ;
 use App\Http\Controllers\CoursesSubscriptionsViewController ;
 use app\Models\User  ;
 
@@ -20,9 +22,7 @@ use app\Models\User  ;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[App\Http\Controllers\HomeController::class, 'index'] );
 
 Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -36,11 +36,14 @@ Route::get('/myspace/enrolments', [App\Http\Controllers\CoursesSubscriptionsView
 Route::get('/myspace/courses/enrolments/{id}/approve',[App\Http\Controllers\CoursesSubscriptionsViewController::class, 'approve'])->middleware('can:isAdmin') ; 
 //cancel enrolment
 Route::get('/myspace/courses/enrolments/{id}/cancel',[App\Http\Controllers\CoursesSubscriptionsViewController::class, 'cancel'])->middleware('can:isAdmin') ; 
+//delete enrolment 
+Route::get('/myspace/courses/enrolments/{id}/delete',[App\Http\Controllers\CoursesSubscriptionsViewController::class, 'delete'])->middleware('can:isAdmin') ; 
 //courses  + categories managment 
 Route::prefix('myspace/courses')->group(function () {      
             Route::get('/',[App\Http\Controllers\CoursesViewController::class, 'index'] )->middleware('can:isAdmin');
             Route::get('/create_cat',[App\Http\Controllers\CategoryController::class, 'create'])->middleware('can:isAdmin'); 
             Route::get('/course/create/{id}',[App\Http\Controllers\CourseController::class, 'create'])->middleware('can:isAdmin'); 
+            Route::get('/course/delete/{id}',[App\Http\Controllers\CoursesViewController::class, 'delete'])->middleware('can:isAdmin'); 
 });
 //get enrolement 
 Route::get('course/enrol/create/{course_id}', [
@@ -63,8 +66,22 @@ Route::get('/myspace/courses/enrolments/{course}',[App\Http\Controllers\CoursesS
 Route::get('/myspace/users',[App\Http\Controllers\UsersViewController::class, 'all'])->middleware('can:isAdmin') ; 
 //users profiles
 //show profile
-Route::get('/myspace/users/{id}',[App\Http\Controllers\UsersViewController::class, 'profile'])->middleware('can:isAdmin'); 
+Route::get('/myspace/users/profile/{id}',[App\Http\Controllers\UsersViewController::class, 'profile'])->middleware('can:isAdmin'); 
 //edit
 Route::get('/myspace/users/{id}/edit',[App\Http\Controllers\UsersViewController::class, 'edit_user'])->middleware('can:isAdmin');
 //delete
 Route::get('/myspace/users/{id}/delete',[App\Http\Controllers\UsersViewController::class, 'delete_user'])->middleware('can:isAdmin');
+//admin dashboard
+Route::get('/myspace/dashboard',[App\Http\Controllers\DashboardController::class, 'index'])->middleware('can:isAdmin');
+//Route::get('/myspace',[App\Http\Controllers\UserSpaceController::class, 'index']);
+
+//admin users type
+Route::prefix('/myspace/users')->group(function () {
+    Route::get('/{type}', [App\Http\Controllers\UsersViewController::class,'type']);
+});
+//events 
+Route::resource('/myspace/events', EventController::class);
+//event enrollement
+Route::get('/event/enrol/create/{id}', [App\Http\Controllers\EnrolementController::class,'event_enroll']);
+//event enrol confirmation 
+Route::get('/event/enrol/{id}/confirm', [App\Http\Controllers\EnrolementController::class,'confirm_event']);

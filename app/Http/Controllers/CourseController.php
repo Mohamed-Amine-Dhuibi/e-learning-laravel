@@ -40,7 +40,25 @@ class CourseController extends Controller
             'course_brief'=>'required|string', 
             'course_fee'=>'required|numeric',
             'c_count'=>'required|integer',
+            'cover_image'=>'image|nullable|max:1999',
         ]);
+        if($request->hasFile('cover_image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+		
+	   
+		
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
         if(Category::find($request->input('c_id') )){
             $course = new Course ; 
         $course->title =$request->input('title') ; 
@@ -49,7 +67,7 @@ class CourseController extends Controller
         $course->course_fee=$request->input('course_fee') ;
         $course->category_id=$request->input('c_id') ;
         $course->nb_chapters = $request->input('c_count');
-
+        $course->cover_image = $fileNameToStore ; 
         $course->save();
         return redirect('/myspace/courses'); 
         }return 'invalid request' ; 
@@ -101,14 +119,36 @@ class CourseController extends Controller
             'course_fee'=>'required|numeric',
             'c_count'=>'required|integer',
         ]);
+        
 
         $course = Course::find($id) ;  
+        
+            
         if($course){
+            /* handle file upload*/
+            if($request->hasFile('cover_image')){
+                // Get filename with the extension
+                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $request->file('cover_image')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                // Upload Image
+                $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            
+        
+            
+                } else {
+                    $fileNameToStore = $course->cover_image;
+                }
             $course->title =$request->input('title') ; 
             $course->course_brief = $request->input('course_brief') ; 
             $course->status = $request->input('status') ; 
             $course->course_fee=$request->input('course_fee') ;
-            $course->category_id=$request->input('c_id') ;
+            $course->category_id=$course->category_id;
+            $course->cover_image = $fileNameToStore ; 
             $course->nb_chapters = $request->input('c_count');
     
             $course->save();
@@ -116,6 +156,7 @@ class CourseController extends Controller
         }else return 'invalid request' ; 
        
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -128,7 +169,9 @@ class CourseController extends Controller
         $course = Course::find($id) ; 
         if($course){
             $course->delete() ; 
-            return redirect()->back();
+            $enrolments = Enrolement::where('course_id',$id) ;
+            $enrolments->delete() ;  
+            return redirect('/myspace/courses');
         }else return 'invalid request' ; 
         
     }

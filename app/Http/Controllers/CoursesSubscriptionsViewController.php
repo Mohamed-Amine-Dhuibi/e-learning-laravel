@@ -44,9 +44,16 @@ class CoursesSubscriptionsViewController extends Controller
             $enrolment->save() ;
         return redirect()->back() ; 
         }else return 'invalid request' ; 
-        
-        
-        
+    }
+
+    public function delete($id){
+
+        $enrolment = Enrolement::find($id) ; 
+        if($enrolment){
+            $enrolment->delete()  ;
+            return redirect()->back() ;
+        }else return 'invalid request' ; 
+  
     }
 
 
