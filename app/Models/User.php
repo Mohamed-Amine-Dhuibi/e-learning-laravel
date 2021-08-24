@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_number',
+        'privilege',
     ];
 
     /**
@@ -52,5 +53,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Enrolement::class) ;
     }
-    
+    protected $table = 'users';
+
 }

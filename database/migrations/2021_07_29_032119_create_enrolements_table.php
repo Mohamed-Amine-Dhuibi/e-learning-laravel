@@ -20,6 +20,7 @@ class CreateEnrolementsTable extends Migration
             $table->integer('course_id')->nullable() ;
             $table->integer('event_id')->nullable() ;
             $table->integer('user_id') ;
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade') ;
         });
     }
 

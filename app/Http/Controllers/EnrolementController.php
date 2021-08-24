@@ -12,7 +12,7 @@ use App\Models\Event ;
 
 class EnrolementController extends Controller
 {
-
+    
 
     public function __construct()
     {
@@ -57,16 +57,12 @@ class EnrolementController extends Controller
                     ->where('course_id','=',$request->input('c_id')) 
                     ->get() ; 
         if($enrolment!='[]'){
-            return redirect('/courses') ; 
+            return redirect('/myspace/class/'.$request->input('c_id'))->with("errors","Already Subscribed") ; 
         }
         if(Course::find($request->input('c_id'))){
             $enrolement  = new Enrolement  ;
             $enrolement->course_id = $request->input('c_id');
-            if (Auth::check()) {
-                $enrolement->user_id = Auth::user()->id ;
-            }else{
-                return "login" ; 
-            }
+            $enrolement->user_id = Auth::user()->id ;
             $enrolement->save() ; 
             $user = Auth::user() ; 
             return $user->Enrolments ; 
@@ -89,7 +85,7 @@ class EnrolementController extends Controller
             }
             $enrolement->save() ; 
             $user = Auth::user() ; 
-            return $user->Enrolments ; 
+            return redirect('/myspace') ; 
             } return 'invalid request' ; 
         }
         
@@ -139,6 +135,12 @@ class EnrolementController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function event_enroll($id){
+        $event = Event::find($id) ;
+        if($event){
+            return view('event_enrol')->with('event',$event) ;
+        }else return 'invalid request' ;  
     }
     
 }

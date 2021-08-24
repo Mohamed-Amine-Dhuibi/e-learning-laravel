@@ -14,7 +14,9 @@
     </div>
     <div class="form-group">
         {{Form::label('description', 'Description')}}
-        {{Form::textarea('description', $category->description, ['id' => '', 'class' => 'form-control', 'placeholder' => 'description'])}}
+        <br/>
+
+        {{Form::textarea('description', $category->description, ['id' => 'editor', 'class' => 'form-control', 'placeholder' => 'description'])}}
     </div>
     <div class="form-group">
         {{Form::label('is_active', 'Active:')  }}
@@ -30,5 +32,10 @@
         {!! Form::close() !!}
     {{ Form::close() }}
 </div>
+<script>
+    tinymce.init({
+      selector: '#editor'
+    });
+  </script>
 
 @endsection

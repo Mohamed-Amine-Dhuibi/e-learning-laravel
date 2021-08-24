@@ -17,55 +17,36 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
+                    <form method="get" action="/myspace/delete/users">
                     <table class="table">
+                      <button type="submit"  title="" class="btn btn-white btn-link btn-just-icon btn-sm delete-all" data-original-title="Edit course"><i class="material-icons">delete</i></button>
                       <thead class=" text-primary">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                         E-mail
-                        </th>
-                        <th>
-                          Phone
-                        </th>
-                        <th>
-                           Action
-                          </th>
-                          
+                        <th><input type="checkbox" id="CheckAll"></th>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                        <th>Phone</th>
+                        <th>Action</th>
                       </thead>
-
+                     
                       <tbody>
-
-
                         @foreach ( $users as $user )
-       
-     
-    
                         <tr>
-                          <td>
-                            {{ $user->id }}
-                          </td>
-                          <td>
-                            <a href="/myspace/users/profile/{{ $user->id }}">{{ $user->name }}</a>
-                          </td>
-                          <td>
-                            {{ $user->email }}  
-                          </td>
-                          <td>
-                            {{ $user->phone_number }}
-                          </td>
-                          <td>
-                            <a href="/myspace/users/{{ $user->id }}/edit">Edit</a> 
-                             <a href="/myspace/users/{{ $user->id }}/delete">delete</a>
-                          </td>
-                         
+                          <td><input type="checkbox" class="check" name="checked[]" value="{{ $user->id }}"></td>
+                          <td><a href="/myspace/users/profile/{{ $user->id }}">{{ $user->name }}</a></td>
+                          <td>{{ $user->email }}</td>
+                          <td>{{ $user->phone_number }}</td>
+                          <td><a href="/myspace/users/{{ $user->id }}/edit">Edit</a>&nbsp;|&nbsp;<a href="/myspace/users/{{ $user->id }}/delete">delete</a></td>
                         </tr>
                         @endforeach
+                      </form>
+                      
                       </tbody>
+                     
                     </table>
+                    <div class="d-flex justify-content-center ">
+                      {!! $users->links() !!}
+                  </div>
+                    
                   </div>
                 </div>
               </div>
@@ -74,8 +55,13 @@
         </div>
     </div>
 
-
-
+<script>
+  $(function(e){
+    $("#CheckAll").click(function(){
+      $(".check").prop('checked',$(this).prop('checked')) ;
+    });
+  });
+</script>
 
 
 @endsection

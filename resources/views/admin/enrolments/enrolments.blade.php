@@ -24,7 +24,7 @@
                     <section class="home-cards">
                         @foreach ( $category->courses  as $course )
                         <div>
-                        <a href="/myspace/courses/enrolments/{{ $course->id }}"><img src="https://www.csitdesk.com/wp-content/uploads/2019/02/jodhpur-1-1024x576.png" alt="">                        
+                        <a href="/myspace/courses/enrolments/{{ $course->id }}"><img src="/storage/cover_images/{{ $course->cover_image }}" alt="">                        
                         <a href="/myspace/courses/enrolments/{{ $course->id }}" class="btn btn-primary">{{ $course->title }}</a>
                         </div>
                         @endforeach

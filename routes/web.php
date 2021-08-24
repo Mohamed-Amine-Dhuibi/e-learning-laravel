@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController ;
 use App\Http\Controllers\CoursesViewController ;
 use App\Http\Controllers\EnrolementController ;
 use App\Http\Controllers\EventController ;
+use App\Http\Controllers\ChapterController ;
 use App\Http\Controllers\DashboardController ;
 use App\Http\Controllers\CoursesSubscriptionsViewController ;
 use app\Models\User  ;
@@ -64,6 +65,8 @@ route::get('/course/{course}',[App\Http\Controllers\UserCoursesViewController::c
 Route::get('/myspace/courses/enrolments/{course}',[App\Http\Controllers\CoursesSubscriptionsViewController::class, 'course_enrolment'])->middleware('can:isAdmin');
 ///admin users view controller
 Route::get('/myspace/users',[App\Http\Controllers\UsersViewController::class, 'all'])->middleware('can:isAdmin') ; 
+//delete selection
+Route::get('/myspace/delete/users', [App\Http\Controllers\UsersViewController::class, 'deleteChecked']);
 //users profiles
 //show profile
 Route::get('/myspace/users/profile/{id}',[App\Http\Controllers\UsersViewController::class, 'profile'])->middleware('can:isAdmin'); 
@@ -85,3 +88,13 @@ Route::resource('/myspace/events', EventController::class);
 Route::get('/event/enrol/create/{id}', [App\Http\Controllers\EnrolementController::class,'event_enroll']);
 //event enrol confirmation 
 Route::get('/event/enrol/{id}/confirm', [App\Http\Controllers\EnrolementController::class,'confirm_event']);
+//search admin 
+route::get('/myspace/search/',[App\Http\Controllers\DashboardController::class,'search']) ;
+//user space
+route::get('/myspace',[App\Http\Controllers\UserSpaceController::class,'index']) ;
+//class 
+Route::prefix('/myspace/class')->group(function(){
+    
+    Route::get('/{id}',[App\Http\Controllers\ClassController::class,'index'])   ;
+});
+Route::resource('/myspace/class/', ChapterController::class);

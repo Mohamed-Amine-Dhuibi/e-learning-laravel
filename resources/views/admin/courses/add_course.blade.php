@@ -18,7 +18,8 @@
     </div>
     <div class="form-group">
         {{Form::label('course_brief', 'Description')}}
-        {{Form::textarea('course_brief', '', ['id' => '', 'class' => 'form-control', 'placeholder' => '&nbsp;description'])}}
+        <br/>
+        {{Form::textarea('course_brief', '', ['id' => 'editor', 'class' => 'form-control', 'placeholder' => '&nbsp;description'])}}
     </div>
     <div class="form-group">
         {{Form::label('is_active', 'Active:')  }}
@@ -31,9 +32,18 @@
         {{Form::label('course_fee', "Price")}}
         {{Form::text('course_fee', '', ['class' => 'form-control','placeholder'=>'&nbsp;price'])}}
     </div>
+    <div>
+        {{Form::label('tutor', "Tutor : ")}}
+        <select name='tutor' class="selectpicker"  aria-label="size 3 select example">         
+                @foreach ($tutors as $tu )
+                    <option value="{{ $tu->id }}">{{ $tu->name }}</option>
+                @endforeach
+          </select>
+    </div>
         {{ Form::hidden('c_id', $c_id) }}
         {{Form::label('cover_image', 'Course Cover')}}<br/>
         {{ Form::file('cover_image') }}
+
         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
     {{Form::close() }}
 
@@ -41,7 +51,11 @@
 <hr>
 </div>
 
-
+<script>
+    tinymce.init({
+      selector: '#editor'
+    });
+  </script>
 
 
 

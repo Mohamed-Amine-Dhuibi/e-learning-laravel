@@ -1,3 +1,6 @@
+@extends('layouts.app')
+@section('content')
+
 confirmation<br/>
 title : {{ $course->title}}<br/>
 fee : {{ $course->course_fee }}<br/>
@@ -5,3 +8,4 @@ fee : {{ $course->course_fee }}<br/>
     {{ Form::hidden('c_id', $course->id) }}
     {{ Form::submit('Submit', ['class'=>'btn btn-primary']) }}
 {{ Form::close() }}
+@endsection
