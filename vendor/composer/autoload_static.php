@@ -123,6 +123,7 @@ class ComposerStaticInit9bb07905a806996e968f1fe979572b5d
             'League\\CommonMark\\' => 18,
             'Laravel\\Ui\\' => 11,
             'Laravel\\Tinker\\' => 15,
+            'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
         ),
         'I' => 
@@ -390,6 +391,10 @@ class ComposerStaticInit9bb07905a806996e968f1fe979572b5d
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Laravel\\Sanctum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/sanctum/src',
+        ),
         'Laravel\\Sail\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
@@ -553,6 +558,7 @@ class ComposerStaticInit9bb07905a806996e968f1fe979572b5d
         'App\\Models\\Course' => __DIR__ . '/../..' . '/app/Models/Course.php',
         'App\\Models\\Enrolement' => __DIR__ . '/../..' . '/app/Models/Enrolement.php',
         'App\\Models\\Event' => __DIR__ . '/../..' . '/app/Models/Event.php',
+        'App\\Models\\Tutor' => __DIR__ . '/../..' . '/app/Models/Tutor.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -2637,6 +2643,17 @@ class ComposerStaticInit9bb07905a806996e968f1fe979572b5d
         'Laravel\\Sail\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/InstallCommand.php',
         'Laravel\\Sail\\Console\\PublishCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/PublishCommand.php',
         'Laravel\\Sail\\SailServiceProvider' => __DIR__ . '/..' . '/laravel/sail/src/SailServiceProvider.php',
+        'Laravel\\Sanctum\\Contracts\\HasAbilities' => __DIR__ . '/..' . '/laravel/sanctum/src/Contracts/HasAbilities.php',
+        'Laravel\\Sanctum\\Contracts\\HasApiTokens' => __DIR__ . '/..' . '/laravel/sanctum/src/Contracts/HasApiTokens.php',
+        'Laravel\\Sanctum\\Guard' => __DIR__ . '/..' . '/laravel/sanctum/src/Guard.php',
+        'Laravel\\Sanctum\\HasApiTokens' => __DIR__ . '/..' . '/laravel/sanctum/src/HasApiTokens.php',
+        'Laravel\\Sanctum\\Http\\Controllers\\CsrfCookieController' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Controllers/CsrfCookieController.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php',
+        'Laravel\\Sanctum\\NewAccessToken' => __DIR__ . '/..' . '/laravel/sanctum/src/NewAccessToken.php',
+        'Laravel\\Sanctum\\PersonalAccessToken' => __DIR__ . '/..' . '/laravel/sanctum/src/PersonalAccessToken.php',
+        'Laravel\\Sanctum\\Sanctum' => __DIR__ . '/..' . '/laravel/sanctum/src/Sanctum.php',
+        'Laravel\\Sanctum\\SanctumServiceProvider' => __DIR__ . '/..' . '/laravel/sanctum/src/SanctumServiceProvider.php',
+        'Laravel\\Sanctum\\TransientToken' => __DIR__ . '/..' . '/laravel/sanctum/src/TransientToken.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
