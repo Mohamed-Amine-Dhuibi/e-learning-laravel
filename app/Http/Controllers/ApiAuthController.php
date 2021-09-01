@@ -45,7 +45,7 @@ class ApiAuthController extends Controller
     }
     public function login(Request $request) {
         $validated = $request->validate([
-            'email' => 'required|string',
+            'email' => 'required|string|email',
             'password' => 'required|string'
         ]);
 

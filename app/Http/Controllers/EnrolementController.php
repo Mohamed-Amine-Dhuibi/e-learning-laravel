@@ -65,7 +65,7 @@ class EnrolementController extends Controller
             $enrolement->user_id = Auth::user()->id ;
             $enrolement->save() ; 
             $user = Auth::user() ; 
-            return $user->Enrolments ; 
+            return redirect('/courses') ; 
             } return 'invalid request' ; 
         }else if($request->input('e_id')){
             $enrolment  = DB::table('enrolements')

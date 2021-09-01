@@ -74,7 +74,11 @@ class DashboardController extends Controller
          ->orWhere('phone_number','LIKE',"%{$search}%")
          ->orWhere('email','LIKE',"%{$search}%")
          ->get() ; 
+
         $courses = Course::where('title','LIKE',"%{$search}%") ; 
-        return view('admin.search')->with(['users'=>$users,'courses'=>$courses]) ; 
+        if($courses){
+            return view('admin.search')->with(['users'=>$users,'courses'=>$courses]) ; 
+        }else return view('admin.search')->with(['users'=>$users,'courses'=>[1,2]]) ; 
+
     }
 }

@@ -36,14 +36,14 @@
 <body>
   @foreach ($errors->all() as $error )
       
-  <div class="alert alert-danger" role="alert" >
+  <div class="alert alert-danger" role="alert" style='position: absolute ; right :43%'>
       {{ $error }}
   </div>
 
 @endforeach
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+  <header id="header" class="fixed-top d-flex align-items-center  header-transparent " style="position: relative">
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">

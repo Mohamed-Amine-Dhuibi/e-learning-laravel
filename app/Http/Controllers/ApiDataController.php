@@ -12,6 +12,7 @@ class ApiDataController extends Controller
     public function user(){
         return response(auth()->user(),200);
     }
+    
     public function courses(Request $request){
         if($request->category){
             $validated = $request->validate(['category'=>'integer']);
@@ -23,12 +24,15 @@ class ApiDataController extends Controller
          
 
     }
+
     public function categories(){
         return Category::all() ;  
     }
+
     public function events(){
         return response(Event::all(),200) ; 
     }
+
     public function UserCourses(){
        
             $enrolments = Auth::user()->Enrolments ;
@@ -48,6 +52,7 @@ class ApiDataController extends Controller
              
          }
     
+
     public function course_chapters(Request $request){
         $validated = $request->validate(['course'=>'numeric']) ; 
         $course = Course::find($request->input('course'));
