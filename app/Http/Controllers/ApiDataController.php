@@ -16,8 +16,9 @@ class ApiDataController extends Controller
     public function courses(Request $request){
         if($request->category){
             $validated = $request->validate(['category'=>'integer']);
-        if(Category::find($request->category)){
-            return Category::find($request->category) ;
+            $cat= Category::find($request->category);
+        if($cat){
+            return  $cat->Courses;
         }else return 'undefined category';
            
         }return response(Course::all(),200);
