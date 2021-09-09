@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
 use App\Models\Course;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -24,7 +25,8 @@ class CourseController extends Controller
      */
     public function create($id)
     {
-        return view('admin.courses.add_course')->with('c_id',$id) ;
+        $tutors = User::where('privilege','tutor')->get() ; 
+        return view('admin.courses.add_course')->with(['c_id'=>$id,'tutors'=>$tutors]) ;
     }
 
     /**
@@ -68,6 +70,9 @@ class CourseController extends Controller
         $course->category_id=$request->input('c_id') ;
         $course->nb_chapters = $request->input('c_count');
         $course->cover_image = $fileNameToStore ; 
+        if($request->input('tutor') and is_int($request->input('tutor')) ){
+            $course->tutor_id=$request->input('tutor') ; 
+        }
         $course->save();
         return redirect('/myspace/courses'); 
         }return 'invalid request' ; 
@@ -97,8 +102,14 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id) ; 
+        $tutors = User::where('privilege','tutor')->get() ; 
+
         if($course){    
-            return view('admin.courses.edit_course')->with('course',$course) ;
+            if ($course->tutor_id !=null){
+                $tutor = User::find($course->tutor_id) ;
+            }else $tutor = 'not selected' ; 
+                return view('admin.courses.edit_course')->with(['course'=>$course,'tutors'=>$tutors,'tutor'=>$tutor]) ;
+           
         }return 'invalid request' ; 
     }
 
@@ -148,6 +159,9 @@ class CourseController extends Controller
             $course->status = $request->input('status') ; 
             $course->course_fee=$request->input('course_fee') ;
             $course->category_id=$course->category_id;
+            if($request->input('tutor') and is_int($request->input('tutor')) ){
+                $course->tutor_id=$request->input('tutor') ; 
+            }
             $course->cover_image = $fileNameToStore ; 
             $course->nb_chapters = $request->input('c_count');
     

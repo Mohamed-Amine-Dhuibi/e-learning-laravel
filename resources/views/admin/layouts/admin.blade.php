@@ -20,8 +20,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    AdminPanel
+  <script src="https://cdn.tiny.cloud/1/s1qqffufsnmzj9b5cmimzrelejzfi585mtiywe9b1go75djp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -107,13 +106,13 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            <form class="navbar-form" method="GET" action="/myspace/search">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
+                <input type="text" name="search" class="form-control" placeholder="Search...">
+                  <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                  </button>
               </div>
             </form>
             <ul class="navbar-nav">
@@ -352,10 +351,10 @@ $(document).ready(function() {
 
 
 <!--footer-->
-<footer class="footer" style="z-index: -1 ; bottom: 0 ;">
+<footer class="footer" style="position:relative ; bottom: 0; z-index:-1;">
   <div class="container-fluid center">
     
-    <div class=" copyright " id="date">
+    <div class=" copyright " >
      
       © Copyright <strong><span>XYPNOS LABS</span></strong>. All Rights Reserved
     </div>

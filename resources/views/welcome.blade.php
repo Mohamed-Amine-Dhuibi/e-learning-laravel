@@ -147,13 +147,14 @@
       <div class="row " >
 @foreach ( $events as $event )
 <div class="col-sm ">
+  <a href="/event/enrol/create/{{ $event->id }}">
   <div class="thumbnail" style="border: 0">
     
     <img src="/storage/cover_images/{{ $event->cover_image }}" alt="Green coffee cup and saucer filled with a latte" >
-<br/><br/>
+<br/><br/><br/>
     <h3 style="color:#47c3d4">{{ $event->name }}</h3>
-    <p>{{ $event->description }}</p>
-
+    <p>{!! $event->description !!}</p>
+  </a>
 </div>
 </div>
 @endforeach

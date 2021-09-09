@@ -17,7 +17,7 @@
 <div>
 
 <div style="margin-left:10%; margin-top:7%; ">
- <th><strong><h3 style="font-size:20px; color:#C39BD3;">Course Brief :</h3> {{ $course->course_brief }}</th>
+ <th><strong><h3 style="font-size:20px; color:#C39BD3;">Course Brief :</h3> {!! $course->course_brief !!}</th>
  <strong><h3 style="font-size:20px; color:#C39BD3; "> Number of chapters : </h3>{{ $course->nb_chapters }}<br/>
   <strong><h3 style="font-size:20px; color:#C39BD3;"> Fee :</h3>  {{ $course->course_fee }}
    

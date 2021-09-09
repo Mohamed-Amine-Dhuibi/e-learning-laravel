@@ -15,15 +15,23 @@
     <div class="form-group" style="margin-top: 4%;">
         {{Form::label('description', 'Description')}}
         <br/>
-        {{Form::textarea('description', '', ['id' => '', 'class' => 'form-control', 'placeholder' => 'description'])}}
+        {{Form::textarea('description', '', ['id' => 'editor', 'class' => 'form-control', 'placeholder' => 'description'])}}
     </div>
     <div class="form-group">
         {{Form::label('is_active', 'Active:')  }}
        
         {{Form::checkbox('status', '1', false) }}
     </div>
-        {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
         <br/>
+        {{Form::label('cover_image', 'Course Cover')}}<br/>
+        {{ Form::file('cover_image') }}<br/>
+        {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+
     {{Form::close() }}
 </div>
+<script>
+    tinymce.init({
+      selector: '#editor'
+    });
+  </script>
 @endsection

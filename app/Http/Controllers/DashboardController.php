@@ -35,7 +35,9 @@ class DashboardController extends Controller
         $total=0 ; 
         $enrolements = Enrolement::where('subscription_is_paid','1')->get(); 
         foreach($enrolements as $enrolment){
-            $total +=  (Course::find($enrolment->course_id))->course_fee ; 
+            if(Course::find($enrolment->course_id)){
+                $total +=  (Course::find($enrolment->course_id))->course_fee ; 
+            }else $total = 0 ; 
         }
         return $total;
     }
@@ -65,5 +67,18 @@ class DashboardController extends Controller
             } 
             return $data ;
     }
+    public function search(Request $request){ 
+        
+        $search = $request->input('search') ; 
+        $users = User::where('name','LIKE',"%{$search}%")
+         ->orWhere('phone_number','LIKE',"%{$search}%")
+         ->orWhere('email','LIKE',"%{$search}%")
+         ->get() ; 
 
+        $courses = Course::where('title','LIKE',"%{$search}%") ; 
+        if($courses){
+            return view('admin.search')->with(['users'=>$users,'courses'=>$courses]) ; 
+        }else return view('admin.search')->with(['users'=>$users,'courses'=>[1,2]]) ; 
+
+    }
 }

@@ -12,11 +12,11 @@ use App\Models\Event ;
 
 class EnrolementController extends Controller
 {
-
+    
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->only(['store']);
     }
 
     /**
@@ -51,25 +51,22 @@ class EnrolementController extends Controller
      */
     public function store(Request $request)
     {
+      
         if($request->input('c_id')){
                     $enrolment  = DB::table('enrolements')
                     ->where('user_id','=',Auth::user()->id)
                     ->where('course_id','=',$request->input('c_id')) 
                     ->get() ; 
         if($enrolment!='[]'){
-            return redirect('/courses') ; 
+            return redirect('/myspace/class/'.$request->input('c_id'))->with(["errors"=>"Already Subscribed"]) ; 
         }
         if(Course::find($request->input('c_id'))){
             $enrolement  = new Enrolement  ;
             $enrolement->course_id = $request->input('c_id');
-            if (Auth::check()) {
-                $enrolement->user_id = Auth::user()->id ;
-            }else{
-                return "login" ; 
-            }
+            $enrolement->user_id = Auth::user()->id ;
             $enrolement->save() ; 
             $user = Auth::user() ; 
-            return $user->Enrolments ; 
+            return redirect('/courses') ; 
             } return 'invalid request' ; 
         }else if($request->input('e_id')){
             $enrolment  = DB::table('enrolements')
@@ -79,7 +76,7 @@ class EnrolementController extends Controller
         if($enrolment!='[]'){
             return redirect('/courses') ; 
         }
-        if(Course::find($request->input('e_id'))){
+        if(Event::find($request->input('e_id'))){
             $enrolement  = new Enrolement  ;
             $enrolement->event_id = $request->input('e_id');
             if (Auth::check()) {
@@ -89,7 +86,7 @@ class EnrolementController extends Controller
             }
             $enrolement->save() ; 
             $user = Auth::user() ; 
-            return $user->Enrolments ; 
+            return redirect('/myspace') ; 
             } return 'invalid request' ; 
         }
         
@@ -139,6 +136,12 @@ class EnrolementController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function event_enroll($id){
+        $event = Event::find($id) ;
+        if($event){
+            return view('event_enrol')->with('event',$event) ;
+        }else return 'invalid request' ;  
     }
     
 }

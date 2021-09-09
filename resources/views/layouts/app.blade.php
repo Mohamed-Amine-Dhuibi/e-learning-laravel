@@ -4,34 +4,16 @@
 
 <head>
   <meta charset="utf-8">
-
-
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://use.fontawesome.com/8c01f7817d.js"></script>
-
-
-
-
-
-
-
-
-
-
 <!--NAVBAR-->
-
-
-
-
-
-
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>XYPNOS - LABS </title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Favicons -->
@@ -44,20 +26,24 @@
   <!-- Vendor CSS Files -->
   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
   
-
   <!-- Template Main CSS File -->
   <link href="https://xypnos-labs.com/assets/css/style.css" rel="stylesheet">
   <link rel ="stylesheet" type ="text/css" href="css/home.css">
-<link  type ="JavaScript" href= "js/home.js">
+  <link  type ="JavaScript" href= "js/home.js">
 
-
-  
 </head>
 
 <body>
+  @foreach ($errors->all() as $error )
+      
+  <div class="alert alert-danger" role="alert" style='position: absolute ; right :43%'>
+      {{ $error }}
+  </div>
+
+@endforeach
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+  <header id="header" class="fixed-top d-flex align-items-center  header-transparent " >
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">
@@ -73,6 +59,8 @@
           @if (Auth::check())
           <li><a href="/myspace">My Courses</a></li>
           <li><a href="/logout">Logout</a></li>
+          <li><a href="/myspace/profile">Profile</a></li>
+
           @if (Auth::User()->privilege=='admin')
           <li><a href="/myspace/dashboard">My Space</a></li>
           @endif
@@ -110,10 +98,7 @@
 
           </p>
           <div class="social-links">
-            
             <a href="https://www.facebook.com/xypnoslabs" class="facebook"><i class="bx bxl-facebook"></i></a>
-            
-           
             <a href="https://www.linkedin.com/company/xypnos-labs" class="linkedin"><i class="bx bxl-linkedin"></i></a>
           </div>
           <div class="copyright">
@@ -122,3 +107,4 @@
          
         </div>
       </footer>
+      

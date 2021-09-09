@@ -5,15 +5,14 @@
 <script src="https://use.fontawesome.com/8c01f7817d.js"></script>
 <link rel ="stylesheet" type ="text/css" href="./css/coursesUser.css">
 <div class="square square-lg" style="background: #313346 ;height: 70px; width: 100%" ></div>
-
         <div style="position: relative;">
             @if (count($events)!=0)
             <h1>Events</h1>
                 <section class="row home-cards">
                     @foreach ($events  as $event )
                         <div>
-                        <img src="/storage/cover_images/{{ $event->cover_image }}" alt="" width="150" height="150">
-                        <p> {{ $event->description }}</p>
+                        <img src="/storage/cover_images/{{ $event->cover_image }}" alt="" width="200" height="200">
+                        
                         <a href="/event/enrol/create/{{ $event->id }}">{{ $event->name }}</a>
                         </div>
                     @endforeach
@@ -23,20 +22,18 @@
                     @foreach ($categories  as $category )
                     @if (count($category->courses)!=0)
                         <h3>{{ $category->name }}</h3>
-                    
                         <section class="row home-cards">
                         @foreach ( $category->courses  as $course )
                                 @if ($course->status==1)
                             <div>
-                            <img src="/storage/cover_images/{{ $course->cover_image }}" alt="">
+                            <img src="/storage/cover_images/{{ $course->cover_image }}"  width="200" height="200">
                             <h4><a href="/course/{{ $course->id }}" class="btn btn-primary">{{ $course->title }}</a> </h4>
                             <p> {{ $course->description }}</p>
-                            <a href="/course/{{ $course->id }}">Learn More <i class="fas fa-chevron-right"></i></a>
+                            <a href="/course/{{ $course->id }}">Learn More </a>
                             </div>
-                            @endif
+                                @endif
                         @endforeach
                         </section>
-
                         @endif
                     @endforeach 
                     <link rel="stylesheet" href={{ asset('css/style.css') }}>
