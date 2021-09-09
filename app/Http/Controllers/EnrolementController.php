@@ -16,7 +16,7 @@ class EnrolementController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->only(['store']);
     }
 
     /**
@@ -51,13 +51,14 @@ class EnrolementController extends Controller
      */
     public function store(Request $request)
     {
+      
         if($request->input('c_id')){
                     $enrolment  = DB::table('enrolements')
                     ->where('user_id','=',Auth::user()->id)
                     ->where('course_id','=',$request->input('c_id')) 
                     ->get() ; 
         if($enrolment!='[]'){
-            return redirect('/myspace/class/'.$request->input('c_id'))->with("errors","Already Subscribed") ; 
+            return redirect('/myspace/class/'.$request->input('c_id'))->with(["errors"=>"Already Subscribed"]) ; 
         }
         if(Course::find($request->input('c_id'))){
             $enrolement  = new Enrolement  ;
@@ -75,7 +76,7 @@ class EnrolementController extends Controller
         if($enrolment!='[]'){
             return redirect('/courses') ; 
         }
-        if(Course::find($request->input('e_id'))){
+        if(Event::find($request->input('e_id'))){
             $enrolement  = new Enrolement  ;
             $enrolement->event_id = $request->input('e_id');
             if (Auth::check()) {

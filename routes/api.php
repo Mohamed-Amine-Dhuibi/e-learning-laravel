@@ -44,6 +44,17 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
      * fields : 'course' : 'course_id'
      */
     Route::Post('/course',[ApiDataController::class,'course_chapters']) ; 
+    /**
+    * enrol : - method :post 
+    *  -fields : c_id (to enrol for a course )  
+    */           
+    Route::POST('/enrol_course', [ApiDataController::class,'enrol_course']);
+    /**
+    * enrol : - method :post 
+    *  -fields e_id ( to enrol to an event )
+    */ 
+    Route::POST('/enrol_event', [ApiDataController::class,'enrol_event']);
+
 });
 /**registering users
 * method Post  
@@ -71,9 +82,8 @@ Route::GET('/categories',[ApiDataController::class,'categories']) ;
  * 
  */
 
-/**
- *subscriptions 
- */
+
+
 /**
  * wishlist 
  */

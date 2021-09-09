@@ -12,5 +12,6 @@ class HomeController extends Controller
       $events=Event::where('status','1')->get()  ;
       return view('welcome')->with(['events'=>$events]) ;
     }
+    
 
 }

@@ -21,16 +21,24 @@
     <div class="form-group">
         {{Form::label('is_active', 'Active:')  }}
         {{Form::checkbox('status','1',$category->status) }}
+        <br/>
+
     </div>
+    <div class="form-group">
+      {{Form::label('cover_image', 'Course Cover')}}<br/>
+    </div>
+    <input type="file" name='cover_image'>
+      <br/>
+      <div class="form-group">
         {{Form::hidden('_method','PUT')}}
         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-        {!! Form::open(['action'=>['App\Http\Controllers\CategoryController@destroy',$category->id],'method'=>'POST','class'=>""]) !!}
+    {{ Form::close() }}
+    {!! Form::open(['action'=>['App\Http\Controllers\CategoryController@destroy',$category->id],'method'=>'POST','class'=>""]) !!}
         {{ Form::hidden('_method','DELETE') }}
         <button type="submit" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="delete course">
           <i class="material-icons">delete</i>
         </button>
         {!! Form::close() !!}
-    {{ Form::close() }}
 </div>
 <script>
     tinymce.init({

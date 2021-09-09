@@ -57,6 +57,24 @@ class CategoryController extends Controller
         ]);
         
         $cat = new Category ; 
+        if($request->hasFile('cover_image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        
+       
+        
+        } else {
+            $fileNameToStore = 'no_image.png';
+        }
+        $cat->cover_image = $fileNameToStore ;
         $cat->name = $request->input('name') ;
         $cat->status = $request->input('status');
         $cat->description = $request->input('description') ; 
@@ -105,13 +123,33 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'bail|required|max:255',
             'description'=>'required|max:255',
+            'cover_image'=>'image|nullable|max:1999',
         ]);
 
         $cat = Category::find($id) ; 
         if($cat){
+
             $cat->name = $request->input('name') ;
             $cat->status = $request->input('status');
             $cat->description = $request->input('description') ; 
+            if($request->hasFile('cover_image')){
+                // Get filename with the extension
+                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $request->file('cover_image')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                // Upload Image
+                $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            
+           
+            
+            } else {
+                $fileNameToStore = $cat->cover_image;
+            }
+            $cat->cover_image = $fileNameToStore ;
             $cat->save() ; 
             return redirect()->action('App\Http\Controllers\CoursesViewController@index') ; 
         }else return 'invalid request' ; 
@@ -134,7 +172,8 @@ class CategoryController extends Controller
             $courses = Course::where('category_id',$id) ; 
             $courses->delete();
 
-            $cat->delete() ; 
+            $cat->delete();
+
         return redirect()->action('App\Http\Controllers\CoursesViewController@index')->with('success','deleted') ; 
         }else return 'invalid request' ; 
         

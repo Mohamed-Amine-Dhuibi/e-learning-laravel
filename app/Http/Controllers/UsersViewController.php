@@ -28,7 +28,7 @@ class UsersViewController extends Controller
     public function profile($id){
         $user = User::find($id) ; 
         if($user){
-            return view('user.profile')->with('user',$user);
+            return view('admin.users.profile')->with('user',$user);
         }else return 'user not found'; 
     }
     public function delete_user($id){

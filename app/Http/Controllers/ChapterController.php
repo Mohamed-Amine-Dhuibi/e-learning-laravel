@@ -56,6 +56,7 @@ class ChapterController extends Controller
                     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                     // Get just ext
                     $extension = $request->file('video')->getClientOriginalExtension();
+                    $filename=str_replace(' ','',$filename);
                     // Filename to store
                     $fileNameToStore= $filename.'_'.time().'.'.$extension;
                     // Upload Image

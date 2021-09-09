@@ -54,7 +54,7 @@
         </header>
     </div>
 
-         <h4 style="margin-top: 7%;margin-left: 3%;color:#49c1d4 ;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">My Course/Python For data science and machine learning</h4></strong>
+         <h4 style="margin-top: 7%;margin-left: 3%;color:#49c1d4 ;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{ $course->Category->name }}/{{ $course->title }}</h4></strong>
            <!--Progress and tests boxes-->
            <div class="row row1" style="margin-top: 2%;">
             <div class="col ms">
@@ -199,18 +199,46 @@
 <!--course-->
 <div id="wrapper" class="playlist-wrapper" style="margin-top: 5%;">
   <div id="player" class="player-wrapper">
-   
-    <div class="save_spinner">
+    <figure>
+      <video width="1000" height="500" controls>
 
-    </div>
+        <source src="/storage/{{ $course->title }}/{!! $chapter->video !!}" type="video/mp4"/>
+        Your browser does not support the video element.
+      </video>
+
+        <p>/storage/{{ $chapter->video }}</p>
+
+    </figure>
+    
  </div>
  <div class="playlist-thumb-container">
    <ul id="" class="playlist-thumb">
      <li> Chapters<li>
          @foreach ($course->Chapters as $chapter )
-         <li class="courseTitle"> {{ $chapter->name }} <br> 1 h 36 min<hr style="height:1px ;background-color: lightgrey;"></li>
+    <li class="courseTitle"> {{ $chapter->name }}
+      @if( Auth::user()->id == $tutor->id)
+          <form action="{{ url('/myspace/class/delete') }}" method="post">
+            @csrf
+          <input class="btn btn-default" type="submit" value="Delete" />
+          <input type="hidden" name="course_id" value="{{ $course->id }}" />
+          <input type="hidden" name="chapter" value="{{ $chapter->id }}" />
+          <input type="hidden" name="_method" value="delete" />
+          </form>
+      @endif
          @endforeach
+         @if( Auth::user()->id == $tutor->id)
+          <form method="POST" action="/myspace/class" enctype="multipart/form-data">
+          @csrf
+          <input name="video" type="file">
+          <input name="name" type="text" placeholder="title">
+          <input name='course_id' type="hidden" value="{{ $course->id }}"><br/><br/><br/><br/><br/><br/><br/><br/>
+          <button type='submit'>submit</button>
+          </form>
+         @endif
+        </li>
+
    </ul>
+
  </div>
 </div>
 <style>
@@ -321,12 +349,14 @@ button {
 }
 </style>
 <script>
+
+  /*
   "use strict";
 
 var player 					  = document.getElementById('player');
 var playlistThumb 		= document.getElementById('playlistThumb');
 
-var apiUrl 			= '//https://youtu.be/psaDHhZ0cPs';
+var apiUrl 			= 'https://youtu.be/psaDHhZ0cPs';
 var apiKey	 		= 'AIzaSyBmn9tD95L_dbCfy_VQ33kwoaQCo8l5IN4';
 var playlistId 	= 'PLLUnHbvt2R4zSyb-jTCDAOduk3DsZNIsH';
 
@@ -376,7 +406,7 @@ function getPlaylistData(playlistID, apiUrl, apiKey) {
     });
 
 	});
-}
+} */
 </script>
 <!--TUOR/FILES-->
 <hr style="height:1px ;background-color: lightgrey; margin-left:35%; width: 30%;margin-top: 5%;">
@@ -406,8 +436,8 @@ function getPlaylistData(playlistID, apiUrl, apiKey) {
   <div class="col ms ">
     <p style="margin-left: 17%; font-size: 20px;">Tutor</p>
     <div class="profile-image"  style="margin-left: 30%;">
-      <img id="img" src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
-      <p style="margin-left: 9%;margin-top: 15px;">jan doe </p>
+      <img id="img" src="/storage/profiles_pics/{{ $tutor->profile_pic }}" alt="">
+      <p style="margin-left: 9%;margin-top: 15px;">{{ $tutor->name }} </p>
       <p style="margin-left: 5%; color:grey">web developer </p>
       <div class="vl2"></div>
     </div>
@@ -606,15 +636,4 @@ flickity.on('dragStart', () => {
 //////////////////////////////////////////////////////////////////////
 </script>
 <div class="square square-lg" style="background: #313346 ;height: 70px; width: 100%" ></div>
-@if( Auth::user()->id == $tutor->id)
-{{ $tutor->name }}
-{{ $course->Chapters }}
-<form method="POST" action="/myspace/class" enctype="multipart/form-data">
-@csrf
-<input name="video" type="file">
-<input name="name" type="text" placeholder="title">
-<input name='course_id' type="hidden" value="{{ $course->id }}">
-<button type='submit'>submit</button>
-</form>
-@endif
 @endsection

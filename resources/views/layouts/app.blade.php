@@ -59,6 +59,8 @@
           @if (Auth::check())
           <li><a href="/myspace">My Courses</a></li>
           <li><a href="/logout">Logout</a></li>
+          <li><a href="/myspace/profile">Profile</a></li>
+
           @if (Auth::User()->privilege=='admin')
           <li><a href="/myspace/dashboard">My Space</a></li>
           @endif

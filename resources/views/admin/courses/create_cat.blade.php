@@ -22,8 +22,11 @@
        
         {{Form::checkbox('status', '1', false) }}
     </div>
-        {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
         <br/>
+        {{Form::label('cover_image', 'Course Cover')}}<br/>
+        {{ Form::file('cover_image') }}<br/>
+        {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+
     {{Form::close() }}
 </div>
 <script>
