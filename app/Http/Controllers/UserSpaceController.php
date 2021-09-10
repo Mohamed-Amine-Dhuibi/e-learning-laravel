@@ -52,7 +52,7 @@ class UserSpaceController extends Controller
             $user->password = Hash::make($request['password']) ; 
         }
         if($request->hasFile('profile_pic')){
-            if($user->profile_pic != 'no_imagejpg'){
+            if($user->profile_pic != 'no_image.jpg'){
                 unlink('./storage/profiles_pics/'.$user->profile_pic);
             }
             // Get filename with the extension
