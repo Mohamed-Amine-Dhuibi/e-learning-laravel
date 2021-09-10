@@ -59,7 +59,7 @@
            <div class="row row1" style="margin-top: 2%;">
             <div class="col ms">
              <div >
-              
+               
              <h3 style="margin-top: 15px;">My Progress</h3>
              <div class="progress-pie-chart" data-percent="100"style="margin-left:50%;margin-top:20px;">
               <div class="ppc-progress">
