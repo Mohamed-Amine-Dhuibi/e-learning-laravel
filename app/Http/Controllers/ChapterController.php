@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Chapter;
+use App\Models\Enrolement;
+use App\Models\Tutor;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Course;
 
@@ -80,9 +82,27 @@ class ChapterController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
-
+    public function chapter($id,$chapter_id){ 
+        $course = Course::find($id) ;
+        if($course){
+            $enrolment = Enrolement::where('user_id',Auth()->user()->id)
+            ->where('course_id',$id)
+            ->where('subscription_is_paid','1')
+            ->get() ;
+            if($enrolment!='[]'){
+                $tutor = Tutor::find($course->tutor_id);
+                $chapters = $course->Chapters ;
+                foreach($chapters as $chapter){
+                    if($chapter->id == $chapter_id){
+                        return view('user.class')->with(['chapter'=>$chapter,'course'=>$course , 'tutor'=>$tutor ]) ;
+                    }else 'invalid request : Chapter not found ' ;
+                }
+        }return 'not subscribed';
+    
+        }else return 'invalid request : Course not found';
+        }
     /**
      * Show the form for editing the specified resource.
      *

@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Chapter;
 use App\Models\Enrolement;
+use Illuminate\Support\Facades\Auth ; 
 
 
 
@@ -20,21 +21,20 @@ class ClassController extends Controller
         ->where('course_id',$id)
         ->where('subscription_is_paid','1')
         ->get() ;
-        if($enrolment!='[]'){
+        if($enrolment!='[]' or $course->tutor_id==Auth::user()->id){
             $tutor = Tutor::find($course->tutor_id);
             $chapters = $course->Chapters ;
-            if($chapters!='[]'){
-                $chapter = $chapters[0] ;
-                return view('user.class')->with(['chapter'=>$chapter,'course'=>$course , 'tutor'=>$tutor ]) ;
+            if($chapters!='[]' or $course->tutor_id==Auth::user()->id){
+                if($chapters!='[]'){
+                    $chapter = $chapters[0] ;
+                }else $chapter = null; 
+                return view('user.class')->with(['chapter'=>$chapter,'course'=>$course , 'tutor'=>$tutor ]) ;   
             }return 'not initialised';
-         
-           
-       
-        
     }return 'not subscribed';
 
     }else return 'invalid request';
     }
+    
 
    public function get_chapter($id){
     $chapter = Chapter::find($id);
@@ -55,6 +55,7 @@ class ClassController extends Controller
             } 
         }return 'chapter not found !';
     } else 'course not found';
-    
    }
+
+
 }

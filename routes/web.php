@@ -99,8 +99,7 @@ Route::prefix('/myspace/class')->group(function(){
     //delete course tutor 
     Route::DELETE('/delete',[App\Http\Controllers\ClassController::class,'delete_course']);
 });
+Route::GET('/myspace/class/{id}/{course_id}', [App\Http\Controllers\ChapterController::class,'chapter']);
 Route::resource('/myspace/class/', ChapterController::class);
 Route::get('/myspace/profile', [App\Http\Controllers\UserSpaceController::class,'profile']);
 Route::POST('/myspace/profile/update',[App\Http\Controllers\UserSpaceController::class,'update_profile']);
-
-
