@@ -59,7 +59,7 @@
            <div class="row row1" style="margin-top: 2%;">
             <div class="col ms">
              <div >
-              
+               
              <h3 style="margin-top: 15px;">My Progress</h3>
              <div class="progress-pie-chart" data-percent="100"style="margin-left:50%;margin-top:20px;">
               <div class="ppc-progress">
@@ -201,12 +201,11 @@
   <div id="player" class="player-wrapper">
     <figure>
       <video width="1000" height="500" controls>
-
+@if($chapter)
         <source src="/storage/{{ $course->title }}/{!! $chapter->video !!}" type="video/mp4"/>
         Your browser does not support the video element.
       </video>
-
-        <p>/storage/{{ $chapter->video }}</p>
+@endif
 
     </figure>
     
@@ -215,8 +214,11 @@
    <ul id="" class="playlist-thumb">
      <li> Chapters<li>
          @foreach ($course->Chapters as $chapter )
-    <li class="courseTitle"> {{ $chapter->name }}
+    <li class="courseTitle" ><a href="./{{ $chapter->id }}"> {{ $chapter->name }}</a>
       @if( Auth::user()->id == $tutor->id)
+      <div style="position: absolute">
+
+     
           <form action="{{ url('/myspace/class/delete') }}" method="post">
             @csrf
           <input class="btn btn-default" type="submit" value="Delete" />
@@ -235,6 +237,7 @@
           <button type='submit'>submit</button>
           </form>
          @endif
+        </div>
         </li>
 
    </ul>
@@ -436,7 +439,7 @@ function getPlaylistData(playlistID, apiUrl, apiKey) {
   <div class="col ms ">
     <p style="margin-left: 17%; font-size: 20px;">Tutor</p>
     <div class="profile-image"  style="margin-left: 30%;">
-      <img id="img" src="/storage/profiles_pics/{{ $tutor->profile_pic }}" alt="">
+      <img id="img" src="/storage/profiles_pics/{{ $tutor->profile_pic }}" alt="" height="100" width="100">
       <p style="margin-left: 9%;margin-top: 15px;">{{ $tutor->name }} </p>
       <p style="margin-left: 5%; color:grey">web developer </p>
       <div class="vl2"></div>
@@ -474,59 +477,7 @@ function getPlaylistData(playlistID, apiUrl, apiKey) {
   <p>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem<br> ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem <br>ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
   </p>
 </div>
-<!--Class members-->
-  <div class="slideshow js-slideshow"> 
-    <div class="slide">
-      <div class="profile">
-        <img class="img" src="https://blog.linkedin.com/content/dam/blog/en-us/corporate/blog/2014/07/Anais_Saint-Jude_L4388_SQ.jpg.jpeg" width="138px" height="138px" style="box-shadow:3px 4px lightgrey ;">
-        <h4 style="margin-top: -47%; color: black;">User Name</h4>
-        <div  style="margin-top: -50%;">
-          <img src="https://www.nicepng.com/png/detail/208-2085876_message-comments-message-icon-black-png.png" width="25px" height="25px"  style="margin-top: -60%;margin-left: 6%;">
-        </div>
-      </div>
-    </div>
-    <div class="slide">
-      <div class="profile">
-        <img class="img" src="https://blog.linkedin.com/content/dam/blog/en-us/corporate/blog/2014/07/Anais_Saint-Jude_L4388_SQ.jpg.jpeg" width="138px" height="138px" style="box-shadow:3px 4px lightgrey ;">
-        <h4 style="margin-top: -47%; color: black;">User Name</h4>
-        <div  style="margin-top: -50%;">
-          <img src="https://www.nicepng.com/png/detail/208-2085876_message-comments-message-icon-black-png.png" width="25px" height="25px"  style="margin-top: -60%;margin-left: 6%;">
-        </div>
-      </div>
-    </div> <div class="slide">
-      <div class="profile">
-        <img class="img" src="https://blog.linkedin.com/content/dam/blog/en-us/corporate/blog/2014/07/Anais_Saint-Jude_L4388_SQ.jpg.jpeg" width="138px" height="138px" style="box-shadow:3px 4px lightgrey ;">
-        <h4 style="margin-top: -47%; color: black;">User Name</h4>
-        <div  style="margin-top: -50%;">
-          <img src="https://www.nicepng.com/png/detail/208-2085876_message-comments-message-icon-black-png.png" width="25px" height="25px"  style="margin-top: -60%;margin-left: 6%;">
-        </div>
-      </div>
-    </div> <div class="slide">
-      <div class="profile">
-        <img class="img" src="https://blog.linkedin.com/content/dam/blog/en-us/corporate/blog/2014/07/Anais_Saint-Jude_L4388_SQ.jpg.jpeg" width="138px" height="138px" style="box-shadow:3px 4px lightgrey ;">
-        <h4 style="margin-top: -47%; color: black;">User Name</h4>
-        <div  style="margin-top: -50%;">
-          <img src="https://www.nicepng.com/png/detail/208-2085876_message-comments-message-icon-black-png.png" width="25px" height="25px"  style="margin-top: -60%;margin-left: 6%;">
-        </div>
-      </div>
-    </div> <div class="slide">
-      <div class="profile">
-        <img class="img" src="https://blog.linkedin.com/content/dam/blog/en-us/corporate/blog/2014/07/Anais_Saint-Jude_L4388_SQ.jpg.jpeg" width="138px" height="138px" style="box-shadow:3px 4px lightgrey ;">
-        <h4 style="margin-top: -47%; color: black;">User Name</h4>
-        <div  style="margin-top: -50%;">
-          <img src="https://www.nicepng.com/png/detail/208-2085876_message-comments-message-icon-black-png.png" width="25px" height="25px"  style="margin-top: -60%;margin-left: 6%;">
-        </div>
-      </div>
-    </div> <div class="slide">
-      <div class="profile">
-        <img class="img" src="https://blog.linkedin.com/content/dam/blog/en-us/corporate/blog/2014/07/Anais_Saint-Jude_L4388_SQ.jpg.jpeg" width="138px" height="138px" style="box-shadow:3px 4px lightgrey ;">
-        <h4 style="margin-top: -47%; color: black;">User Name</h4>
-        <div  style="margin-top: -50%;">
-          <img src="https://www.nicepng.com/png/detail/208-2085876_message-comments-message-icon-black-png.png" width="25px" height="25px"  style="margin-top: -60%;margin-left: 6%;">
-        </div>
-      </div>
-    </div>
-  </div>
+
 <style>
   .img{
     border-radius: 50%;

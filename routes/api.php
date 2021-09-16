@@ -22,11 +22,17 @@ use App\Http\Controllers\ApiDataController ;
 //api login protected routes
 Route::group(['middleware'=>['auth:sanctum']],function(){
     /**
-     * user enrolled courses and events 
+     * user enrolled courses 
      * method Post
      * header --> contains valid access token 
      */
-    Route::Post('/user/enrolments',[ApiDataController::class,'UserCourses']);
+    Route::Post('/user/enrolled_courses',[ApiDataController::class,'UserCourses']);
+    /**
+     * user enrolled events 
+     * method Post
+     * header --> contains valid access token 
+     */
+    Route::Post('/user/enrolled_events',[ApiDataController::class,'UserEvents']);
     /**
      * user logout 
      * success status 200 , returns 'logged out' 
@@ -81,6 +87,17 @@ Route::GET('/categories',[ApiDataController::class,'categories']) ;
  * search
  * 
  */
+/**
+ * Events
+ * 
+ */
+Route::GET('/events',[ApiDataController::class,'events']) ;
+/**
+ * Last course
+ * 
+ */
+Route::GET('/last_course',[ApiDataController::class,'last_course']) ;
+
 
 
 

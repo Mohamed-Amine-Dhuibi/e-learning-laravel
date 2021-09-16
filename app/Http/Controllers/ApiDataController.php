@@ -24,10 +24,7 @@ class ApiDataController extends Controller
         if($cat){
             return  $cat->Courses;
         }else return 'undefined category';
-           
         }return response(Course::all(),200);
-         
-
     }
 
     public function categories(){
@@ -46,16 +43,26 @@ class ApiDataController extends Controller
                 if($enrol->Course){
                  array_push($courses,$enrol->Course) ; 
                 }
-            } 
+            }
+             return response(array('courses'=>$courses),200);
+             
+         }
+         public function UserEvents(){
+       
+            $enrolments = Auth::user()->Enrolments ;
             $events = [];
             foreach ($enrolments as $enrol){
                 if($enrol->Event){
                  array_push($events,$enrol->Event) ; 
                 }
             }  
-             return response(array('courses'=>$courses, 'events'=>$events),200);
-             
+             return response(array('events'=>$events),200);  
          }
+         public function last_course(){
+            $courses = Course::orderBy('created_at', 'desc')->get() ;
+            return response($courses[0] ,200);  
+         }
+
     
 
     public function course_chapters(Request $request){
@@ -115,6 +122,7 @@ class ApiDataController extends Controller
             } return response('invalid request') ; 
         }else 'invalid request : check sent data !' ;
     }
+    
     public function update_profile(Request $request){
         $validated=$request->validate([
             'name'=>'string|required',

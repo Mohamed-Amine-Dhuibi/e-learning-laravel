@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Tutor;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -70,13 +71,18 @@ class CourseController extends Controller
         $course->category_id=$request->input('c_id') ;
         $course->nb_chapters = $request->input('c_count');
         $course->cover_image = $fileNameToStore ; 
-        if($request->input('tutor') and is_int($request->input('tutor')) ){
-            $course->tutor_id=$request->input('tutor') ; 
-        }
+        if($request->input('tutor')){
+            if(Tutor::find($request->input('tutor'))){
+                $tutor = Tutor::find($request->input('tutor'));
+                $course->tutor_id=$request->input('tutor');
+            }else return 'tutor not found';
+        } 
+        
         $course->save();
         return redirect('/myspace/courses'); 
         }return 'invalid request' ; 
         
+
     }
 
     /**
@@ -105,9 +111,9 @@ class CourseController extends Controller
         $tutors = User::where('privilege','tutor')->get() ; 
 
         if($course){    
-            if ($course->tutor_id !=null){
-                $tutor = User::find($course->tutor_id) ;
-            }else $tutor = 'not selected' ; 
+            if ($course->tutor_id !=null and Tutor::find($course->tutor_id) ){
+                $tutor=Tutor::find($course->tutor_id);
+            }else $tutor = 'not selected' ;
                 return view('admin.courses.edit_course')->with(['course'=>$course,'tutors'=>$tutors,'tutor'=>$tutor]) ;
            
         }return 'invalid request' ; 
@@ -148,20 +154,20 @@ class CourseController extends Controller
                 $fileNameToStore= $filename.'_'.time().'.'.$extension;
                 // Upload Image
                 $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-            
-        
-            
+
                 } else {
                     $fileNameToStore = $course->cover_image;
                 }
+
             $course->title =$request->input('title') ; 
             $course->course_brief = $request->input('course_brief') ; 
             $course->status = $request->input('status') ; 
             $course->course_fee=$request->input('course_fee') ;
             $course->category_id=$course->category_id;
-            if($request->input('tutor') and is_int($request->input('tutor')) ){
-                $course->tutor_id=$request->input('tutor') ; 
-            }
+            if(Tutor::find($request->input('tutor'))){
+                $tutor = Tutor::find($request->input('tutor'));
+                $course->tutor_id=$request->input('tutor');
+                }else return 'tutor not found';
             $course->cover_image = $fileNameToStore ; 
             $course->nb_chapters = $request->input('c_count');
     
