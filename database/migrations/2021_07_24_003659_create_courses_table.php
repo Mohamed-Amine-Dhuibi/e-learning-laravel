@@ -19,15 +19,15 @@ class CreateCoursesTable extends Migration
             $table->text('course_brief') ;
             $table->integer('nb_chapters')->nullable()->default(0) ;
             $table->float('course_fee') ;
-            $table->integer('category_id') ; 
-            $table->string('cover_image')->default('no_image.jpg') ; 
-            $table->integer('status')->nullable()->default(0) ; 
+            $table->integer('category_id') ;
+            $table->string('cover_image')->default('no_image.jpg') ;
+            $table->integer('status')->nullable()->default(0) ;
             $table->timestamps() ;
             $table->integer('tutor_id')->nullable();
-            $table ->foreign('category_id')->references('id')->on('categories')->onDelete('cascade') ; 
+            $table ->foreign('category_id')->references('id')->on('categories')->onDelete('cascade') ;
         });
 
-    
+
     }
 
     /**
